@@ -8,7 +8,11 @@
 
       {% for app in apps %}
         <div class="card">
-          <strong>{{ app.company }}</strong>
+          <strong>
+            <a href="/applications/{{ app.id }}">
+            {{ app.company }}
+          </a>
+          </strong>
           <div>{{ app.role_title }}</div>
           {% if app.location %}
             <small>{{ app.location }}</small>
