@@ -1,13 +1,15 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-
-
+from app.core.db import init_db, close_db
+from app.core.settings import settings
 
 @asynccontextmanager
-def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI):
+    await init_db()
     yield
+    await close_db()
 
-app = FastAPI()
+app = FastAPI(title="Job Application Tracker by IG", debug=settings.debug, lifespan=lifespan)
 
 @app.get("/health")
 async def health_check():
