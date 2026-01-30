@@ -2,6 +2,12 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.core.db import init_db, close_db
 from app.core.settings import settings
+from app.apis.applications import router as applications_router
+from app.apis.events import router as events_router
+
+
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -10,6 +16,9 @@ async def lifespan(app: FastAPI):
     await close_db()
 
 app = FastAPI(title="Job Application Tracker by IG", debug=settings.debug, lifespan=lifespan)
+
+app.include_router(applications_router)
+app.include_router(events_router)
 
 @app.get("/health")
 async def health_check():
