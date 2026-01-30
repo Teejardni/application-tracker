@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="kanban">
+  {% for status, apps in columns.items() %}
+    <section class="column">
+      <h2>{{ status|capitalize }}</h2>
+
+      {% for app in apps %}
+        <div class="card">
+          <strong>{{ app.company }}</strong>
+          <div>{{ app.role_title }}</div>
+          {% if app.location %}
+            <small>{{ app.location }}</small>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="empty">No items</div>
+      {% endfor %}
+    </section>
+  {% endfor %}
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,45 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  padding: 1rem;
+  background: #111;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+header a {
+  color: #fff;
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+.kanban {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.column {
+  flex: 1;
+  background: #f4f4f4;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.card {
+  background: #fff;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.empty {
+  color: #777;
+  font-size: 0.9rem;
+}
+
