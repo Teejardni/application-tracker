@@ -11,7 +11,7 @@ from app.models.event import EventCreate
 from app.models.enums import EventType
 
 
-router = APIRouter(tags=["pages"])
+router = APIRouter(prefix="/ui", tags=["pages"])
 
 
 @router.get("/", response_class=HTMLResponse)
