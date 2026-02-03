@@ -4,8 +4,8 @@ from app.core.db import init_db, close_db
 from app.core.settings import settings
 from app.apis.applications import router as applications_router
 from app.apis.events import router as events_router
-
-
+from fastapi.staticfiles import StaticFiles
+from app.apis.pages import router as pages_router
 
 
 
@@ -17,8 +17,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Job Application Tracker by IG", debug=settings.debug, lifespan=lifespan)
 
+
 app.include_router(applications_router)
 app.include_router(events_router)
+app.include_router(pages_router)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.get("/health")
 async def health_check():

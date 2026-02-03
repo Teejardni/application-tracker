@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+  <h2>{{ application.company }} — {{ application.role_title }}</h2>
+  <p>
+    Status: <strong>{{ application.status }}</strong><br />
+    Applied on: {{ application.date_applied }}<br />
+    {% if application.location %}Location: {{ application.location }}{% endif %}
+  </p>
+</section>
+
+<hr />
+
+<section>
+  <h3>Event Timeline</h3>
+
+  {% for event in events %}
+    <div class="timeline-item">
+      <strong>{{ event.event_type }}</strong>
+      <small>{{ event.event_date }}</small>
+      {% if event.metadata %}
+        <pre>{{ event.metadata }}</pre>
+      {% endif %}
+    </div>
+  {% else %}
+    <p>No events yet.</p>
+  {% endfor %}
+</section>
+
+<hr />
+
+<section>
+  <h3>Add Event</h3>
+
+  <form method="post" action="/ui/applications/{{ application.id }}/events">
+    <label>
+      Event type:
+      <select name="event_type" required>
+        {% for et in event_types %}
+          <option value="{{ et }}">{{ et }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <br /><br />
+
+    <label>
+      Notes (optional):
+      <br />
+      <textarea name="metadata" rows="3" cols="40"></textarea>
+    </label>
+
+    <br /><br />
+
+    <button type="submit">Add Event</button>
+  </form>
+</section>
+
+{% endblock %}
+
