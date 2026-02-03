@@ -18,10 +18,14 @@ header a {
   text-decoration: none;
 }
 
+main {
+  padding: 1rem;
+}
+
 .kanban {
   display: flex;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0;
 }
 
 .column {
@@ -54,3 +58,69 @@ header a {
   color: #666;
 }
 
+.panel {
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-inline {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-inline input {
+  flex: 1;
+}
+
+.form-error {
+  color: #b00020;
+  margin-top: 0.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.form-grid input,
+.form-grid textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-grid .checkbox {
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+}
+
+.form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.form-grid button {
+  padding: 0.6rem 1.2rem;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
