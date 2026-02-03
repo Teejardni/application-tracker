@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from html.parser import HTMLParser
+import ipaddress
+import socket
 from typing import Optional
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -68,10 +70,30 @@ def _clean_company(company: str) -> str:
     return cleaned
 
 
+def _host_is_public(hostname: str) -> bool:
+    try:
+        ip = ipaddress.ip_address(hostname)
+    except ValueError:
+        try:
+            resolved = socket.getaddrinfo(hostname, None)
+        except socket.gaierror as exc:
+            raise ValueError("Unable to resolve host") from exc
+        for _, _, _, _, sockaddr in resolved:
+            addr = sockaddr[0]
+            if not ipaddress.ip_address(addr).is_global:
+                return False
+        return True
+    return ip.is_global
+
+
 def scrape_job_posting(url: str) -> dict[str, Optional[str]]:
     parsed = urlparse(url)
     if parsed.scheme not in {"http", "https"}:
         raise ValueError("URL must start with http or https")
+    if not parsed.hostname:
+        raise ValueError("URL must include a hostname")
+    if not _host_is_public(parsed.hostname):
+        raise ValueError("URL must resolve to a public host")
 
     request = Request(url, headers={"User-Agent": "ApplicationTracker/1.0"})
     with urlopen(request, timeout=10) as response:  # noqa: S310
