@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="panel">
+  <h2>Add a job application</h2>
+
+  <form class="form-row" method="get" action="/ui/applications/new">
+    <label for="url">Paste a job link to prefill</label>
+    <div class="form-inline">
+      <input type="url" id="url" name="url" placeholder="https://..." value="{{ prefill.source or '' }}" />
+      <button type="submit">Prefill</button>
+    </div>
+    {% if error %}
+      <p class="form-error">{{ error }}</p>
+    {% endif %}
+  </form>
+</section>
+
+<section class="panel">
+  <h3>Application details</h3>
+  <form class="form-grid" method="post" action="/ui/applications">
+    <label>
+      Company
+      <input type="text" name="company" required value="{{ prefill.company or '' }}" />
+    </label>
+    <label>
+      Role title
+      <input type="text" name="role_title" required value="{{ prefill.role_title or '' }}" />
+    </label>
+    <label>
+      Location
+      <input type="text" name="location" value="{{ prefill.location or '' }}" />
+    </label>
+    <label>
+      Source link
+      <input type="url" name="source" value="{{ prefill.source or '' }}" />
+    </label>
+    <label>
+      Date applied
+      <input type="date" name="date_applied" value="{{ today }}" />
+    </label>
+    <label>
+      Salary min
+      <input type="number" name="salary_min" min="0" />
+    </label>
+    <label>
+      Salary max
+      <input type="number" name="salary_max" min="0" />
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="relocation" />
+      Open to relocation
+    </label>
+    <label>
+      Visa sponsorship
+      <input type="text" name="visa_sponsorship" placeholder="Yes / No / Unknown" />
+    </label>
+    <label class="full-width">
+      Notes
+      <textarea name="notes" rows="4"></textarea>
+    </label>
+    <div class="full-width">
+      <button type="submit">Add application</button>
+    </div>
+  </form>
+</section>
+
+{% endblock %}
